@@ -56,7 +56,7 @@ Check the job logs:
 ```
 kubectl logs -l job-name=ip-tool-check
 ```
-\
+
 ### 6. Cleanup
 To delete the deployment:
 
