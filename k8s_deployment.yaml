@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ip-tool-deployment
+  labels:
+    app: ip-tool
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ip-tool
+  template:
+    metadata:
+      labels:
+        app: ip-tool
+    spec:
+      containers:
+      - name: ip-tool
+        image: ip-tool:v1 
+        imagePullPolicy: Never  # Use locally built image
+        command: ["/bin/sh", "-c", "python /app/ip_tool.py --output-file /data/ip_networks.txt && sleep infinity"]
+        volumeMounts:
+        - name: shared-storage
+          mountPath: /data
+      volumes:
+      - name: shared-storage
+        persistentVolumeClaim:
+          claimName: ip-tool-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ip-tool-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
