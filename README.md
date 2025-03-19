@@ -71,6 +71,7 @@ kubectl delete -f k8s_deployment.yaml
 ├── Dockerfile               # Container setup
 ├── ip_tool.py               # Python script for IP collection
 ├── k8s_deployment.yaml      # Kubernetes deployment file
+├── ip-tool-check.yaml       # Kubernetes job for collision detection
 └── README.txt               # Project documentation
 ```
 
