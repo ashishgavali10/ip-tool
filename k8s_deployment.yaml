@@ -18,7 +18,7 @@ spec:
       - name: ip-tool
         image: ip-tool:v1 
         imagePullPolicy: Never  # Use locally built image
-        command: ["/bin/sh", "-c", "python /app/ip_tool.py --output-file /data/ip_networks.txt && sleep infinity"]
+        command: ["/bin/sh", "-c", "python /app/ip_tool.py --output-file /data/ip_networks.txt"] #&& sleep infinity
         volumeMounts:
         - name: shared-storage
           mountPath: /data

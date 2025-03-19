@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ip-tool-check
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: ip-tool-check
+          image: ip-tool:latest
+          imagePullPolicy: Never  # Use locally built image
+          command: ["python", "/app/ip_tool.py", "--check-collision", "/data/ip_networks.txt"]
+          volumeMounts:
+            - name: data-storage
+              mountPath: /data
+      volumes:
+        - name: data-storage
+          persistentVolumeClaim:
+            claimName: ip-tool-pvc

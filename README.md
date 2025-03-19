@@ -46,12 +46,17 @@ kubectl exec -it <pod-name> -- cat /data/ip_networks.txt
 ```
 
 ### 5. Collision Check
-You can run the collision check feature:
+Since all containers exit after execution, a separate Kubernetes Job is used to check for IP collisions.
 
+Apply the job:
 ```
-kubectl exec -it <pod-name> -- python /app/ip_tool.py --check-collision /data/ip_networks.txt
+kubectl apply -f ip-tool-check.yaml
 ```
-
+Check the job logs:
+```
+kubectl logs -l job-name=ip-tool-check
+```
+\
 ### 6. Cleanup
 To delete the deployment:
 
